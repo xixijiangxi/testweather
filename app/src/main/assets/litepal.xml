@@ -1,0 +1,10 @@
+<litepal>
+
+    <dbname value="data"/>
+
+    <version value = "1"/>
+
+    <list>
+        <mapping class="com.xixiweather.testweather.db.Weathercode"/>
+    </list>
+</litepal>

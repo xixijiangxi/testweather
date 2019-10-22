@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:fitsSystemWindows="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <TextView
+            android:id="@+id/data_prov"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@+id/title_text"
+            android:layout_marginEnd="92dp"
+            android:layout_marginStart="-150dp"
+            android:layout_toStartOf="@+id/title_text"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="省份"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/data_city"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/title_text"
+            android:layout_marginEnd="-18dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="城市"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/data_county"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/title_text"
+            android:layout_marginEnd="-149dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="区/县"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#fff"
+            android:textSize="20sp"/>
+
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_back"/>
+    </RelativeLayout>
+
+    <RelativeLayout android:id="@+id/rlSearchFrameDelete"
+                android:layout_width="fill_parent"
+
+                android:layout_height="?attr/actionBarSize"
+
+                android:layout_toEndOf="@id/data_prov">
+
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="false"
+                android:queryHint="请输入搜索内容" />
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
