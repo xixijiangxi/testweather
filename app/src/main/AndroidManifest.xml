@@ -21,6 +21,9 @@
         <activity android:name=".AreaActivity"
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity >
+        <activity android:name=".ReadActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity >
         <service
             android:name=".service.AutoUpdateService"
             android:enabled="true"
