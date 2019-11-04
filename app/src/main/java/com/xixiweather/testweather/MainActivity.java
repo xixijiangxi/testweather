@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView todaychtemptext;
     private TextView windtext;
     private ImageButton selectcitybutton;
+    private Button everydayReadbutton;
     private String weatherc;
 
     public DBMain dbHelper;
@@ -84,11 +85,21 @@ public class MainActivity extends AppCompatActivity {
         todaychtemptext = (TextView) findViewById(R.id.todaychtemp);
         windtext = (TextView) findViewById(R.id.wind);
         selectcitybutton = (ImageButton) findViewById(R.id.selectcity_button);
+        everydayReadbutton = (Button) findViewById(R.id.everydayread);
 
         selectcitybutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this , AreaActivity.class);
+                ////启动
+                startActivityForResult(i,1);
+            }
+        });
+
+        everydayReadbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this , ReadActivity.class);
                 ////启动
                 startActivityForResult(i,1);
             }

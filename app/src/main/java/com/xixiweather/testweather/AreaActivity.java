@@ -1,6 +1,5 @@
 package com.xixiweather.testweather;
 
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -45,12 +47,9 @@ public class AreaActivity extends AppCompatActivity {
     private EditText editText;
     private SearchView mSearchView;
     private ListView listView;
-
-
-
+    private CityAdapter mAdapter;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -59,53 +58,45 @@ public class AreaActivity extends AppCompatActivity {
         database = SQLiteDatabase.openOrCreateDatabase(DBMain.DB_PATH+"/"+DBMain.DB_NAME,null);
         backbutton = findViewById(R.id.back_button);
         mSearchView = findViewById(R.id.searchView);
-        listView = findViewById(R.id.listView);
+        //listView = findViewById(R.id.listView);
         citylist = new ArrayList<>();
 
 
-        //遍历数据库获得各个城市信息
+        //遍历数据库获得各个城市信息北京
         Cursor cursor = database.rawQuery("select * from weathercode",null);
-
         while(cursor.moveToNext()){   //从数据库读数据存入citylist
 
             String weatherc = cursor.getString(cursor.getColumnIndex("weather_code"));
-
             String countyname = cursor.getString(cursor.getColumnIndex("county_name_c"));
-
             String cityname = cursor.getString(cursor.getColumnIndex("city_name_c"));
-
             String provname = cursor.getString(cursor.getColumnIndex("prov_name_c"));
-
             Weathercode st = new Weathercode(weatherc,countyname,cityname,provname);
-
             citylist.add(st);
 
         }
-
         database.close();
         //通过适配器将citylist显示到item上
-        CityAdapter adapter = new CityAdapter(AreaActivity.this,R.layout.item,citylist);
+        mAdapter = new CityAdapter(this,citylist);
 
         lv = (ListView)findViewById(R.id.list_view);
-        lv.setAdapter(adapter);
-        listView.setTextFilterEnabled(true);
-        listView.setAdapter(new ArrayAdapter<Weathercode>(AreaActivity.this,R.layout.item,citylist));
+        lv.setAdapter(mAdapter);
+        lv.setTextFilterEnabled(true);
+        setupSearchView();
+
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             String weatherid;
-
             @Override
-
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Weathercode weather = citylist.get(position);
-
+                //Weathercode weather = citylist.get(position);
+                 Weathercode weather = citylist.get(position);
+                //weatherid = citylist.get(position).getWeather_code();
                 weatherid= weather.getWeather_code();
                 //根据查询的城市对应的id返回给MainActivity查询
                 Intent i = new Intent();
                 i.putExtra("data_return",weatherid);
-                setResult(RESULT_OK,i);
-                                                                                                                                      setResult(RESULT_OK,i);
+                setResult(RESULT_OK,i);                                                                                                                                     setResult(RESULT_OK,i);
                 finish();
 
             }
@@ -120,15 +111,21 @@ public class AreaActivity extends AppCompatActivity {
                 return false;
             }
 
-            // 当搜索内容改变时触发该方法
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (!TextUtils.isEmpty(newText)){
-                    listView.setFilterText(newText);
+            public boolean onQueryTextChange(String newText){
+                ListAdapter adapter = lv.getAdapter();
+                //if(TextUtils.isEmpty(newText)){
+                if (adapter instanceof Filterable){
+                    Filter filter =((Filterable)adapter).getFilter();
+                    if(newText == null || newText.length()==0){
+                        filter.filter(null);
+                    }else{
+                        filter.filter(newText);
+                    }
+
                 }else{
-                    listView.clearTextFilter();
+                    lv.setFilterText(newText.toString());
                 }
-                return false;
+                return true;
             }
         });
 
@@ -141,6 +138,12 @@ public class AreaActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setupSearchView(){
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setSubmitButtonEnabled(false);
+        mSearchView.setQueryHint("搜索城市");
     }
 
     @Override
