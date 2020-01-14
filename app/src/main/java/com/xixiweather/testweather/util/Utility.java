@@ -3,6 +3,7 @@ package com.xixiweather.testweather.util;
 import com.xixiweather.testweather.gson.History;
 import com.xixiweather.testweather.gson.Weather;
 import com.google.gson.Gson;
+import com.xixiweather.testweather.gson.test;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +31,18 @@ public class Utility {
             JSONArray jsonArray = jsonObject.getJSONArray("result");
             String historyContent = jsonArray.getJSONObject(0).toString();
             return new Gson().fromJson(historyContent, History.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static test handletestResponse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            String testContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(testContent, test.class);
         } catch (Exception e) {
             e.printStackTrace();
         }

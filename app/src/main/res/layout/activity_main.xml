@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     tools:context=".MainActivity">
+
+    <!--CustomVideoView 自定义视频类的位置-->
+    <com.xixiweather.testweather.CustomVideoView
+        android:id="@+id/videoview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
     <ImageView
@@ -27,7 +32,7 @@
 
         android:text=" 24"
         android:textAlignment="viewEnd"
-        android:textColor="#3D3D3B"
+        android:textColor="#FAFAFA"
         android:textSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
@@ -55,7 +60,7 @@
             android:layout_height="54dp"
             android:text="℃"
             android:textAlignment="viewStart"
-            android:textColor="#3D3D3B"
+            android:textColor="#FCFCFB"
             android:textSize="30dp" />
 
         <TextView
@@ -64,15 +69,10 @@
             android:layout_height="54dp"
             android:text="晴（实时）"
             android:textAlignment="viewEnd"
-            android:textColor="#3D3D3B"
+            android:textColor="#FCFCFA"
             android:textSize="30dp" />
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/locloc" />
+
 
     </LinearLayout>
 
@@ -115,7 +115,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="20℃~30℃"
-        android:textColor="#3D3D3B"
+        android:textColor="#FCFCFC"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/citytext"
@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="晴转多云"
-        android:textColor="#3D3D3B"
+        android:textColor="#FCFCF9"
 
         android:textSize="24sp"
         android:textStyle="bold"
@@ -147,7 +147,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="西风3~4级"
-        android:textColor="#3D3D3B"
+        android:textColor="#FDFDFC"
 
         android:textSize="24sp"
         android:textStyle="bold"
@@ -171,17 +171,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/locloc" />
 
-    <Button
+    <ImageButton
         android:id="@+id/everydayread"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
         android:layout_marginTop="50dp"
-        android:text="每日好文"
+        android:backgroundTint="#00000000"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/wind"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/lishi" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

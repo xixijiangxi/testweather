@@ -18,6 +18,8 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 
@@ -49,6 +51,8 @@ import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,16 +64,25 @@ public class MainActivity extends AppCompatActivity {
     private TextView temprangetext;
     private TextView todaychtemptext;
     private TextView windtext;
+    private TextView testtext;
     private ImageButton selectcitybutton;
-    private Button everydayReadbutton;
+    private ImageButton everydayReadbutton;
     private String weatherc;
+    private CustomVideoView videoview;
+
 
     public DBMain dbHelper;
+    @Override
+    protected void onResume(){
+        super.onResume();
+        initView();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
         //将数据库写入手机
         dbHelper = new DBMain(this);
         dbHelper.openDatabase();
@@ -85,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
         todaychtemptext = (TextView) findViewById(R.id.todaychtemp);
         windtext = (TextView) findViewById(R.id.wind);
         selectcitybutton = (ImageButton) findViewById(R.id.selectcity_button);
-        everydayReadbutton = (Button) findViewById(R.id.everydayread);
+        everydayReadbutton = (ImageButton) findViewById(R.id.everydayread);
+
 
         selectcitybutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +135,29 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mHandler.postDelayed(r, 100);//延时100毫秒
+    }
+
+    private void initView() {
+
+        videoview = (CustomVideoView) findViewById(R.id.videoview);
+        videoview.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.hhhh));
+
+        //播放
+        videoview.start();
+        //循环播放
+        videoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                videoview.start();
+                mediaPlayer.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+                    @Override
+                    public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                        return false;
+                    }
+                });
+            }
+        });
+
     }
 
     private void sendRequestWithURLConnection(final String weatherId){
